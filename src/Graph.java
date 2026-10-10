@@ -67,5 +67,23 @@ public class Graph {
             if (!visited.contains(n)) dfsHelper(n, visited, order);
         }
     }
+    /** Fills the graph with a connected random graph (used by the benchmark and sample loader). */
+    public void generateRandom(int vertices, int extraEdges, long seed) {
+        adj.clear();
+        Random r = new Random(seed);
+        for (int i = 1; i <= vertices; i++) addVertex(i);
+        for (int i = 2; i <= vertices; i++) addEdge(i, 1 + r.nextInt(i - 1));   // spanning tree keeps it connected
+        for (int i = 0; i < extraEdges; i++) {
+            int a = 1 + r.nextInt(vertices), b = 1 + r.nextInt(vertices);
+            if (a != b && !adj.get(a).contains(b)) addEdge(a, b);
+        }
+    }
+ 
+    public void loadSample() {
+        adj.clear();
+        for (int i = 1; i <= 7; i++) addVertex(i);
+        int[][] e = {{1,2},{1,3},{2,4},{2,5},{3,6},{3,7},{5,6}};
+        for (int[] x : e) addEdge(x[0], x[1]);
+    }
 
 }
