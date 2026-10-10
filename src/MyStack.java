@@ -12,4 +12,16 @@ public class MyStack {
         items[++top] = v;
         return true;
     }
+    
+    /** Returns popped value; callers must check isEmpty first. */
+    public int pop() { return items[top--]; }
+
+    public int peek() { return items[top]; }
+
+    public void display() {
+        if (isEmpty()) { System.out.println("Stack is empty."); return; }
+        System.out.println("Stack (top -> bottom):");
+        for (int i = top; i >= 0; i--) System.out.println("  | " + items[i] + " |" + (i == top ? "  <- top" : ""));
+        System.out.println("  +----+");
+    }
 }
