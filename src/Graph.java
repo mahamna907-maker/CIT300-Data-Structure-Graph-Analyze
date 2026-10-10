@@ -49,5 +49,23 @@ public class Graph {
         }
         return order;
     }
+/** Depth-first traversal using recursion: O(V + E). */
+    public List<Integer> dfs(int start) {
+        List<Integer> order = new ArrayList<>();
+        lastSteps = 0;
+        if (!adj.containsKey(start)) return order;
+        dfsHelper(start, new HashSet<>(), order);
+        return order;
+    }
+ 
+    private void dfsHelper(int v, Set<Integer> visited, List<Integer> order) {
+        visited.add(v);
+        order.add(v);
+        lastSteps++;                              // vertex processed
+        for (int n : adj.get(v)) {
+            lastSteps++;                          // edge examined
+            if (!visited.contains(n)) dfsHelper(n, visited, order);
+        }
+    }
 
 }
