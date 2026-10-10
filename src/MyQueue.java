@@ -13,4 +13,21 @@ public class MyQueue {
         count++;
         return true;
     }
+    
+    /** Returns removed value; callers must check isEmpty first. */
+    public int dequeue() {
+        int v = items[front];
+        front = (front + 1) % CAPACITY;
+        count--;
+        return v;
+    }
+
+    public int front() { return items[front]; }
+
+    public void display() {
+        if (isEmpty()) { System.out.println("Queue is empty."); return; }
+        StringBuilder sb = new StringBuilder("Front -> ");
+        for (int i = 0; i < count; i++) sb.append("[").append(items[(front + i) % CAPACITY]).append("] ");
+        System.out.println(sb.append("<- Rear"));
+    }
 }
