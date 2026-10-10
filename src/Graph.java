@@ -29,5 +29,25 @@ public class Graph {
         System.out.println("Adjacency List:");
         adj.forEach((v, n) -> System.out.println("  " + v + " -> " + n));
     }
+/** Breadth-first traversal using a queue: O(V + E). */
+    public List<Integer> bfs(int start) {
+        List<Integer> order = new ArrayList<>();
+        lastSteps = 0;
+        if (!adj.containsKey(start)) return order;
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(start);
+        visited.add(start);
+        while (!q.isEmpty()) {
+            int v = q.poll();
+            order.add(v);
+            lastSteps++;                          // vertex processed
+            for (int n : adj.get(v)) {
+                lastSteps++;                      // edge examined
+                if (visited.add(n)) q.add(n);
+            }
+        }
+        return order;
+    }
 
 }
