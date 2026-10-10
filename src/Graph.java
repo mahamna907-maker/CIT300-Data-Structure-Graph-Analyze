@@ -85,5 +85,40 @@ public class Graph {
         int[][] e = {{1,2},{1,3},{2,4},{2,5},{3,6},{3,7},{5,6}};
         for (int[] x : e) addEdge(x[0], x[1]);
     }
+    public void menu() {
+        int c;
+        do {
+            System.out.println("\n--------------- GRAPH OPERATIONS ---------------");
+            System.out.println("1. Add Vertex\n2. Add Edge\n3. Display Graph\n4. BFS Traversal\n5. DFS Traversal");
+            System.out.println("6. Load sample graph\n7. Return to Main Menu");
+            c = InputHelper.readInt("Enter your choice: ", 1, 7);
+            switch (c) {
+                case 1 -> {
+                    int v = InputHelper.readInt("Vertex number: ");
+                    if (addVertex(v)) { System.out.println("Vertex " + v + " added."); PerformanceAnalyzer.log("Graph add vertex " + v); }
+                }
+                case 2 -> {
+                    if (adj.size() < 2) { System.out.println("Add at least two vertices first."); break; }
+                    int a = InputHelper.readInt("From vertex: ");
+                    int b = InputHelper.readInt("To vertex: ");
+                    if (addEdge(a, b)) { System.out.println("Edge " + a + " - " + b + " added."); PerformanceAnalyzer.log("Graph add edge " + a + "-" + b); }
+                }
+                case 3 -> display();
+                case 4, 5 -> {
+                    if (adj.isEmpty()) { System.out.println("Graph is empty. Add vertices or load the sample graph."); break; }
+                    int s = InputHelper.readInt("Start vertex: ");
+                    if (!hasVertex(s)) { System.out.println("Vertex " + s + " does not exist."); break; }
+                    String name = c == 4 ? "BFS" : "DFS";
+                    long t = System.nanoTime();
+                    List<Integer> order = c == 4 ? bfs(s) : dfs(s);
+                    t = System.nanoTime() - t;
+                    System.out.println(name + " order: " + order + " | steps = " + lastSteps + " | time = " + t + " ns");
+                    PerformanceAnalyzer.log(name + " from " + s + ": " + order + ", steps=" + lastSteps + ", time=" + t + " ns");
+                }
+                case 6 -> { loadSample(); System.out.println("Sample graph loaded (7 vertices, 7 edges)."); display(); }
+                default -> { }
+            }
+        } while (c != 7);
+    }
 
 }
