@@ -15,4 +15,19 @@ public class Graph {
         adj.put(v, new ArrayList<>());
         return true;
     }
+    public boolean addEdge(int a, int b) {
+        if (!adj.containsKey(a) || !adj.containsKey(b)) { System.out.println("Both vertices must exist first."); return false; }
+        if (a == b) { System.out.println("Self-loops are not allowed."); return false; }
+        if (adj.get(a).contains(b)) { System.out.println("Edge already exists."); return false; }
+        adj.get(a).add(b);
+        adj.get(b).add(a);              // undirected
+        return true;
+    }
+ 	
+    public void display() {
+        if (adj.isEmpty()) { System.out.println("Graph is empty."); return; }
+        System.out.println("Adjacency List:");
+        adj.forEach((v, n) -> System.out.println("  " + v + " -> " + n));
+    }
+
 }
