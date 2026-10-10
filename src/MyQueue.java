@@ -30,4 +30,29 @@ public class MyQueue {
         for (int i = 0; i < count; i++) sb.append("[").append(items[(front + i) % CAPACITY]).append("] ");
         System.out.println(sb.append("<- Rear"));
     }
+    
+    public void menu() {
+        int c;
+        do {
+            System.out.println("\n--------------- QUEUE OPERATIONS ---------------");
+            System.out.println("1. Enqueue\n2. Dequeue\n3. Peek/Front\n4. Display\n5. Return to Main Menu");
+            c = InputHelper.readInt("Enter your choice: ", 1, 5);
+            switch (c) {
+                case 1 -> {
+                    int v = InputHelper.readInt("Value to enqueue: ");
+                    if (enqueue(v)) { System.out.println("Enqueued " + v + "."); PerformanceAnalyzer.log("Queue enqueue: " + v); }
+                }
+                case 2 -> {
+                    if (isEmpty()) System.out.println("Queue underflow! Cannot dequeue from an empty queue.");
+                    else { int v = dequeue(); System.out.println("Dequeued " + v + "."); PerformanceAnalyzer.log("Queue dequeue: " + v); }
+                }
+                case 3 -> {
+                    if (isEmpty()) System.out.println("Queue is empty. Nothing at the front.");
+                    else System.out.println("Front element: " + front());
+                }
+                case 4 -> display();
+                default -> { }
+            }
+        } while (c != 5);
+    }
 }
