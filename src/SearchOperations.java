@@ -26,4 +26,24 @@ public class SearchOperations {
         }
         return new int[]{-1, steps};
     }
+        private void enterManually() {
+        String line = InputHelper.readLine("Enter whole numbers separated by spaces or commas: ");
+        String[] parts = line.split("[,\\s]+");
+        int[] tmp = new int[parts.length];
+        try {
+            for (int i = 0; i < parts.length; i++) tmp[i] = Integer.parseInt(parts[i]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input: only whole numbers are allowed. Dataset unchanged.");
+            return;
+        }
+        Arrays.sort(tmp);   // binary search requires sorted data
+        dataset = tmp;
+        System.out.println("Dataset stored and sorted (needed for binary search): " + Arrays.toString(dataset));
+    }
+ 
+    private boolean hasData() {
+        if (dataset.length == 0) { System.out.println("Dataset is empty. Use option 1 or 2 first."); return false; }
+        return true;
+    }
+
 }
