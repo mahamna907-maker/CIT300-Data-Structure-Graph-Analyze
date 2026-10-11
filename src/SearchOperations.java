@@ -53,5 +53,37 @@ public class SearchOperations {
         System.out.printf("%-14s: %s | steps = %d | time = %d ns%n", name, res, r[1], r[2]);
         PerformanceAnalyzer.log(name + " (target " + target + "): " + res + ", steps=" + r[1] + ", time=" + r[2] + " ns");
     }
+public void menu() {
+        int c;
+        do {
+            System.out.println("\n------------- SEARCHING OPERATIONS -------------");
+            System.out.println("1. Enter dataset manually\n2. Generate random dataset\n3. Display dataset");
+            System.out.println("4. Linear Search\n5. Binary Search\n6. Compare both searches\n7. Return to Main Menu");
+            c = InputHelper.readInt("Enter your choice: ", 1, 7);
+            switch (c) {
+                case 1 -> enterManually();
+                case 2 -> {
+                    int n = InputHelper.readInt("How many elements (1-100000)? ", 1, 100000);
+                    Random r = new Random();
+                    dataset = r.ints(n, 0, n * 3).toArray();
+                    Arrays.sort(dataset);
+                    System.out.println("Generated " + n + " sorted random numbers.");
+                }
+                case 3 -> {
+                    if (!hasData()) break;
+                    System.out.println(dataset.length > 50
+                            ? "Dataset has " + dataset.length + " elements. First 50: " + Arrays.toString(Arrays.copyOf(dataset, 50)) + " ..."
+                            : "Dataset (sorted): " + Arrays.toString(dataset));
+                }
+                case 4, 5, 6 -> {
+                    if (!hasData()) break;
+                    int target = InputHelper.readInt("Value to search: ");
+                    if (c != 5) report("Linear Search", target, timedLinear(target));
+                    if (c != 4) report("Binary Search", target, timedBinary(target));
+                }
+                default -> { }
+            }
+        } while (c != 7);
+    }
 
 }
