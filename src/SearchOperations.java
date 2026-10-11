@@ -45,5 +45,13 @@ public class SearchOperations {
         if (dataset.length == 0) { System.out.println("Dataset is empty. Use option 1 or 2 first."); return false; }
         return true;
     }
+    private long[] timedLinear(int t) { long s = System.nanoTime(); int[] r = linearSearch(dataset, t); return new long[]{r[0], r[1], System.nanoTime() - s}; }
+    private long[] timedBinary(int t) { long s = System.nanoTime(); int[] r = binarySearch(dataset, t); return new long[]{r[0], r[1], System.nanoTime() - s}; }
+ 
+    private void report(String name, int target, long[] r) {
+        String res = r[0] == -1 ? "NOT FOUND" : "found at index " + r[0];
+        System.out.printf("%-14s: %s | steps = %d | time = %d ns%n", name, res, r[1], r[2]);
+        PerformanceAnalyzer.log(name + " (target " + target + "): " + res + ", steps=" + r[1] + ", time=" + r[2] + " ns");
+    }
 
 }
