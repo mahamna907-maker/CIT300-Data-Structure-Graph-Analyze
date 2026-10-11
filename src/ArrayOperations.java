@@ -25,5 +25,17 @@ public class ArrayOperations {
         size--;
         return true;
     }
+/** Linear search for a value; returns index or -1. */
+    public int search(int value) {
+        for (int i = 0; i < size; i++) if (data[i] == value) return i;
+        return -1;
+    }
+ 
+    public void display() {
+        if (isEmpty()) { System.out.println("Array is empty."); return; }
+        StringBuilder sb = new StringBuilder("Array (size " + size + "/" + CAPACITY + "): [");
+        for (int i = 0; i < size; i++) sb.append(data[i]).append(i < size - 1 ? ", " : "");
+        System.out.println(sb.append("]"));
+    }
 
 }
