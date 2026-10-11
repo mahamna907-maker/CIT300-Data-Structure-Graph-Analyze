@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class LinkedListManager {
     private static class Node {
         int data;
@@ -11,11 +9,6 @@ public class LinkedListManager {
     }
 
     private Node head;
-    private final Scanner scanner;
-
-    public LinkedListManager(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public void menu() {
         while (true) {
@@ -25,12 +18,12 @@ public class LinkedListManager {
             System.out.println("3. Search");
             System.out.println("4. Display");
             System.out.println("5. Return to Main Menu");
-            int choice = InputUtil.readInt(scanner, "Enter your choice: ");
+            int choice = InputHelper.readInt("Enter your choice: ");
 
             switch (choice) {
-                case 1 -> insert(InputUtil.readInt(scanner, "Enter value to insert: "));
-                case 2 -> delete(InputUtil.readInt(scanner, "Enter value to delete: "));
-                case 3 -> search(InputUtil.readInt(scanner, "Enter value to search: "));
+                case 1 -> insert(InputHelper.readInt("Enter value to insert: "));
+                case 2 -> delete(InputHelper.readInt("Enter value to delete: "));
+                case 3 -> search(InputHelper.readInt("Enter value to search: "));
                 case 4 -> display();
                 case 5 -> { return; }
                 default -> System.out.println("Invalid choice. Please select 1-5.");
