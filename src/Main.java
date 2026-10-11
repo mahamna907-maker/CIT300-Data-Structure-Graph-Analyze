@@ -4,7 +4,7 @@ public class Main {
         ArrayOperations array = new ArrayOperations();
         MyStack stack = new MyStack();
         MyQueue queue = new MyQueue();
-        LinkedListOperations list = new LinkedListOperations();
+        LinkedListManager list = new LinkedListManager();
         SearchOperations search = new SearchOperations();
         Graph graph = new Graph();
  
